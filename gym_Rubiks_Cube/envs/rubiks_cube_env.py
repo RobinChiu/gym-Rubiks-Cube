@@ -34,7 +34,7 @@ class RubiksCubeEnv(gym.Env):
         self.np_random, seed = seeding.np_random(seed)
         return [seed]
 
-    def _step(self, action):
+    def step(self, action):
         self.action_log.append(action)
         self.ncube.minimalInterpreter(actionList[action])
         self.state = self.getstate()
@@ -53,7 +53,7 @@ class RubiksCubeEnv(gym.Env):
         return self.state, reward, done, others
 
 
-    def _reset(self):
+    def reset(self):
         orderNum = 3
         self.state = {}
         self.ncube = cube.Cube(order=orderNum)
@@ -66,7 +66,7 @@ class RubiksCubeEnv(gym.Env):
     def getstate(self):
         return np.array([tileDict[i]/5 for i in self.ncube.constructVectorState()])
 
-    def _render(self, mode='human', close=False):
+    def render(self, mode='human', close=False):
         if close:
             return
         self.ncube.displayCube(isColor=True)
