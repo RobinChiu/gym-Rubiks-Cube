@@ -73,7 +73,7 @@ class RubiksCubeEnv(gym.Env):
 
     def scramble(self):
         # set the scramber number
-        scramble_num = random.randint(5, 7)
+        scramble_num = random.randint(1, 10)
 
         # check if scramble
         while self.ncube.isSolved() :
