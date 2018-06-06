@@ -20,12 +20,13 @@ tileDict = {
 class RubiksCubeEnv(gym.Env):
     metadata = {'render.modes': ['human']}
 
-    def __init__(self):
+    def __init__(self, orderNum=3):
         # the action is 6 move x 2 direction = 12
         self.action_space = spaces.Discrete(12)
         # input is 9x6 = 54 array
-        low = np.array([0 for i in range(54)])
-        high = np.array([5 for i in range(54)])
+        self.orderNum = orderNum
+        low = np.array([0 for i in range(self.orderNum*self.orderNum*6)])
+        high = np.array([5 for i in range(self.orderNum*self.orderNum*6)])
         self.observation_space = spaces.Box(low, high, dtype=np.uint8) # flattened
         self.step_count = 0
 
@@ -57,9 +58,8 @@ class RubiksCubeEnv(gym.Env):
 
 
     def reset(self):
-        orderNum = 3
         self.state = {}
-        self.ncube = cube.Cube(order=orderNum)
+        self.ncube = cube.Cube(order=self.orderNum)
         if self.doScamble:
             self.scramble()
         self.state = self.getstate()
