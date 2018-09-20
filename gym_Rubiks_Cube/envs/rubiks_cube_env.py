@@ -2,7 +2,7 @@ import gym
 from gym import spaces
 import numpy as np
 import random
-from gym.envs.magic_cube import cube
+from gym_Rubiks_Cube.envs import cube
 
 actionList = [
         'f', 'r', 'l', 'u', 'd', 'b',
